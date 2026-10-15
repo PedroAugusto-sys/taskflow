@@ -1,0 +1,45 @@
+# .NET
+bin/
+obj/
+*.db
+*.db-shm
+*.db-wal
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+dist/
+.env.local
+.env.production.local
+
+# Playwright
+test-results/
+playwright-report/
+playwright/.cache/
+
+# IDEs
+.vs/
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Data
+data/
+*.db
+
+# Build
+build/
+coverage/
+*.log
