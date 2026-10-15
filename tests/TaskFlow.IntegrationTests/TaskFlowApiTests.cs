@@ -4,43 +4,42 @@ using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using TaskFlow.Api.Data;
 using TaskFlow.Api.DTOs;
 using TaskFlow.Api.Models;
 
 namespace TaskFlow.IntegrationTests;
 
-public class TaskFlowApiTests
+public class TaskFlowApiTests : IClassFixture<WebApplicationFactory<Program>>, IDisposable
 {
-    private readonly WebApplicationFactory<Program> _factory;
     private readonly HttpClient _client;
+    private readonly WebApplicationFactory<Program> _factory;
+    private readonly string _dbName;
 
-    public TaskFlowApiTests()
+    public TaskFlowApiTests(WebApplicationFactory<Program> factory)
     {
-        _factory = new WebApplicationFactory<Program>().WithWebHostBuilder(builder =>
+        _dbName = $"TestDb_{Guid.NewGuid()}";
+        
+        _factory = factory.WithWebHostBuilder(builder =>
         {
             builder.ConfigureServices(services =>
             {
-                var descriptor = services.SingleOrDefault(d => d.ServiceType == typeof(DbContextOptions<TaskFlowContext>));
-                if (descriptor != null)
-                {
-                    services.Remove(descriptor);
-                }
-
+                services.RemoveAll(typeof(DbContextOptions<TaskFlowContext>));
+                
                 services.AddDbContext<TaskFlowContext>(options =>
                 {
-                    options.UseInMemoryDatabase($"InMemoryTestDb_{Guid.NewGuid()}");
+                    options.UseInMemoryDatabase(_dbName);
                 });
-
-                var sp = services.BuildServiceProvider();
-                using var scope = sp.CreateScope();
-                var scopedServices = scope.ServiceProvider;
-                var db = scopedServices.GetRequiredService<TaskFlowContext>();
-                db.Database.EnsureCreated();
             });
         });
 
         _client = _factory.CreateClient();
+    }
+
+    public void Dispose()
+    {
+        _client?.Dispose();
     }
 
     [Fact]
@@ -230,7 +229,7 @@ public class TaskFlowApiTests
     [Fact]
     public async Task GetAllTasks_ShouldFilterByStatus()
     {
-        var task1 = new CreateTaskItemDto("Open Task", "This is an open task for filtering", TaskPriority.Low, "", "");
+        var task1 = new CreateTaskItemDto("Open Task", "This is an open task", TaskPriority.Low, "", "");
         var task2 = new CreateTaskItemDto("Task to Complete", "This task will be completed", TaskPriority.Medium, "", "");
         
         await _client.PostAsJsonAsync("/api/tasks", task1);
@@ -245,52 +244,58 @@ public class TaskFlowApiTests
         response.StatusCode.Should().Be(HttpStatusCode.OK);
         var tasks = await response.Content.ReadFromJsonAsync<List<TaskItemDto>>();
         tasks.Should().NotBeNull();
-        tasks!.Should().HaveCountGreaterOrEqualTo(1);
-        tasks.Should().OnlyContain(t => t.Status == TaskItemStatus.Completed);
+        tasks!.Should().Contain(t => t.Id == createdTask2.Id && t.Status == TaskItemStatus.Completed);
+        tasks.Should().NotContain(t => t.Status != TaskItemStatus.Completed);
     }
 
     [Fact]
     public async Task GetAllTasks_ShouldFilterByPriority()
     {
-        await _client.PostAsJsonAsync("/api/tasks", new CreateTaskItemDto("Low Priority", "Low priority task", TaskPriority.Low, "", ""));
-        await _client.PostAsJsonAsync("/api/tasks", new CreateTaskItemDto("High Priority", "High priority task", TaskPriority.High, "", ""));
+        var lowTask = await _client.PostAsJsonAsync("/api/tasks", new CreateTaskItemDto("Low Priority Task", "Low priority", TaskPriority.Low, "", ""));
+        var highTask = await _client.PostAsJsonAsync("/api/tasks", new CreateTaskItemDto("High Priority Task", "High priority", TaskPriority.High, "", ""));
+        
+        var highCreated = await highTask.Content.ReadFromJsonAsync<TaskItemDto>();
 
         var response = await _client.GetAsync("/api/tasks?priority=2");
 
         response.StatusCode.Should().Be(HttpStatusCode.OK);
         var tasks = await response.Content.ReadFromJsonAsync<List<TaskItemDto>>();
         tasks.Should().NotBeNull();
-        tasks!.Should().HaveCountGreaterOrEqualTo(1);
-        tasks.Should().OnlyContain(t => t.Priority == TaskPriority.High);
+        tasks!.Should().Contain(t => t.Id == highCreated!.Id && t.Priority == TaskPriority.High);
+        tasks.Should().NotContain(t => t.Priority != TaskPriority.High);
     }
 
     [Fact]
     public async Task GetTasksByAssignee_ShouldReturnTasksForSpecificUser()
     {
-        await _client.PostAsJsonAsync("/api/tasks", new CreateTaskItemDto("John's Task", "Task for John", TaskPriority.Medium, "John Doe", ""));
+        var johnTask = await _client.PostAsJsonAsync("/api/tasks", new CreateTaskItemDto("John's Task", "Task for John", TaskPriority.Medium, "John Doe", ""));
         await _client.PostAsJsonAsync("/api/tasks", new CreateTaskItemDto("Jane's Task", "Task for Jane", TaskPriority.Medium, "Jane Smith", ""));
+        
+        var johnCreated = await johnTask.Content.ReadFromJsonAsync<TaskItemDto>();
 
         var response = await _client.GetAsync("/api/tasks/assignee/John%20Doe");
 
         response.StatusCode.Should().Be(HttpStatusCode.OK);
         var tasks = await response.Content.ReadFromJsonAsync<List<TaskItemDto>>();
         tasks.Should().NotBeNull();
-        tasks!.Should().HaveCountGreaterOrEqualTo(1);
-        tasks.Should().OnlyContain(t => t.AssignedTo.Equals("John Doe", StringComparison.OrdinalIgnoreCase));
+        tasks!.Should().Contain(t => t.Id == johnCreated!.Id && t.AssignedTo.Equals("John Doe", StringComparison.OrdinalIgnoreCase));
+        tasks.Should().NotContain(t => t.AssignedTo.Equals("Jane Smith", StringComparison.OrdinalIgnoreCase));
     }
 
     [Fact]
     public async Task GetTasksByCategory_ShouldReturnTasksForSpecificCategory()
     {
-        await _client.PostAsJsonAsync("/api/tasks", new CreateTaskItemDto("Dev Task", "Development task", TaskPriority.Medium, "", "Development"));
+        var devTask = await _client.PostAsJsonAsync("/api/tasks", new CreateTaskItemDto("Dev Task", "Development task", TaskPriority.Medium, "", "Development"));
         await _client.PostAsJsonAsync("/api/tasks", new CreateTaskItemDto("Bug Task", "Bug fix task", TaskPriority.High, "", "Bug Fix"));
+        
+        var devCreated = await devTask.Content.ReadFromJsonAsync<TaskItemDto>();
 
         var response = await _client.GetAsync("/api/tasks/category/Development");
 
         response.StatusCode.Should().Be(HttpStatusCode.OK);
         var tasks = await response.Content.ReadFromJsonAsync<List<TaskItemDto>>();
         tasks.Should().NotBeNull();
-        tasks!.Should().HaveCountGreaterOrEqualTo(1);
-        tasks.Should().OnlyContain(t => t.Category.Equals("Development", StringComparison.OrdinalIgnoreCase));
+        tasks!.Should().Contain(t => t.Id == devCreated!.Id && t.Category.Equals("Development", StringComparison.OrdinalIgnoreCase));
+        tasks.Should().NotContain(t => t.Category.Equals("Bug Fix", StringComparison.OrdinalIgnoreCase));
     }
 }

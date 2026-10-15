@@ -21,7 +21,7 @@ export class TaskFormPage {
     this.statusSelect = page.locator('#status');
     this.assignedToInput = page.locator('#assignedTo');
     this.categoryInput = page.locator('#category');
-    this.submitButton = page.getByRole('button', { name: /(create task|update task)/i });
+    this.submitButton = page.locator('button[type="submit"]');
     this.cancelButton = page.getByRole('button', { name: /cancel/i });
     this.formTitle = page.getByRole('heading', { name: /(create new task|edit task)/i });
     this.errorMessage = page.locator('[role="alert"]');
