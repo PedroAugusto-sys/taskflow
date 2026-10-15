@@ -1,97 +1,95 @@
 import { test, expect } from '@playwright/test';
 import { TasksPage } from '../pages/TasksPage';
 import { TaskFormPage } from '../pages/TaskFormPage';
+import { resetDatabase, waitForTaskCreated, waitForTaskUpdated, waitForTaskDeleted, waitForTasksLoaded } from '../helpers/testFixtures';
 
 test.describe('Task Management', () => {
   let tasksPage: TasksPage;
   let taskFormPage: TaskFormPage;
 
   test.beforeEach(async ({ page }) => {
+    await resetDatabase(page);
     tasksPage = new TasksPage(page);
     taskFormPage = new TaskFormPage(page);
     await tasksPage.goto();
+    await waitForTasksLoaded(page);
   });
 
   test('should update an existing task', async ({ page }) => {
-    const timestamp = Date.now();
     await tasksPage.clickNewTask();
     await taskFormPage.createTask({
-      title: `Task to Update ${timestamp}`,
+      title: 'Task to Update',
       description: 'This task will be updated during testing',
       priority: 'Low',
       category: 'Development',
     });
-    await page.waitForTimeout(800);
+    await waitForTaskCreated(page, 'Task to Update');
 
-    await tasksPage.clickEditOnTask(`Task to Update ${timestamp}`);
+    await tasksPage.clickEditOnTask('Task to Update');
     await taskFormPage.updateTask({
-      title: `Updated Task ${timestamp}`,
+      title: 'Updated Task Title',
       priority: 'High',
     });
-    await page.waitForTimeout(800);
+    await waitForTaskUpdated(page);
 
-    await expect(tasksPage.getTaskCardByTitle(`Updated Task ${timestamp}`).first()).toBeVisible();
-    const priority = await tasksPage.getTaskPriority(`Updated Task ${timestamp}`);
+    await expect(tasksPage.getTaskCardByTitle('Updated Task Title')).toBeVisible();
+    const priority = await tasksPage.getTaskPriority('Updated Task Title');
     expect(priority).toContain('High');
   });
 
   test('should delete a task', async ({ page }) => {
-    const timestamp = Date.now();
     await tasksPage.clickNewTask();
     await taskFormPage.createTask({
-      title: `Task to Delete ${timestamp}`,
+      title: 'Task to Delete',
       description: 'This task will be deleted during testing',
     });
-    await page.waitForTimeout(800);
+    await waitForTaskCreated(page, 'Task to Delete');
 
-    await expect(tasksPage.getTaskCardByTitle(`Task to Delete ${timestamp}`).first()).toBeVisible();
+    await expect(tasksPage.getTaskCardByTitle('Task to Delete')).toBeVisible();
 
     page.on('dialog', dialog => dialog.accept());
-    await tasksPage.clickDeleteOnTask(`Task to Delete ${timestamp}`);
+    await tasksPage.clickDeleteOnTask('Task to Delete');
+    await waitForTaskDeleted(page);
 
-    await page.waitForTimeout(1000);
-    const isVisible = await tasksPage.isTaskVisible(`Task to Delete ${timestamp}`);
-    expect(isVisible).toBe(false);
+    await expect(tasksPage.getTaskCardByTitle('Task to Delete')).not.toBeVisible();
   });
 
   test('should change task status from Open to In Progress', async ({ page }) => {
-    const timestamp = Date.now();
     await tasksPage.clickNewTask();
     await taskFormPage.createTask({
-      title: `Task to Start ${timestamp}`,
+      title: 'Task to Start',
       description: 'This task will be started during testing',
     });
-    await page.waitForTimeout(800);
+    await waitForTaskCreated(page, 'Task to Start');
 
-    let status = await tasksPage.getTaskStatus(`Task to Start ${timestamp}`);
+    let status = await tasksPage.getTaskStatus('Task to Start');
     expect(status).toContain('Open');
 
-    await tasksPage.clickStatusActionOnTask(`Task to Start ${timestamp}`);
-    await page.waitForTimeout(1000);
+    await tasksPage.clickStatusActionOnTask('Task to Start');
+    await waitForTaskUpdated(page);
 
-    status = await tasksPage.getTaskStatus(`Task to Start ${timestamp}`);
+    status = await tasksPage.getTaskStatus('Task to Start');
     expect(status).toContain('In Progress');
   });
 
   test('should change task status from In Progress to Completed', async ({ page }) => {
-    const timestamp = Date.now();
     await tasksPage.clickNewTask();
     await taskFormPage.createTask({
-      title: `Task to Complete ${timestamp}`,
+      title: 'Task to Complete',
       description: 'This task will be completed during testing',
     });
-    await page.waitForTimeout(800);
+    await waitForTaskCreated(page, 'Task to Complete');
 
-    await tasksPage.clickStatusActionOnTask(`Task to Complete ${timestamp}`);
-    await page.waitForTimeout(1000);
+    await tasksPage.clickStatusActionOnTask('Task to Complete');
+    await waitForTaskUpdated(page);
 
-    let status = await tasksPage.getTaskStatus(`Task to Complete ${timestamp}`);
+    let status = await tasksPage.getTaskStatus('Task to Complete');
     expect(status).toContain('In Progress');
 
-    await tasksPage.clickStatusActionOnTask(`Task to Complete ${timestamp}`);
-    await page.waitForTimeout(1000);
+    await tasksPage.clickStatusActionOnTask('Task to Complete');
+    await waitForTaskUpdated(page);
 
-    status = await tasksPage.getTaskStatus(`Task to Complete ${timestamp}`);
+    status = await tasksPage.getTaskStatus('Task to Complete');
     expect(status).toContain('Completed');
   });
 });

@@ -1,15 +1,18 @@
 import { test, expect } from '@playwright/test';
 import { TasksPage } from '../pages/TasksPage';
 import { TaskFormPage } from '../pages/TaskFormPage';
+import { resetDatabase, waitForTaskCreated, waitForTasksLoaded } from '../helpers/testFixtures';
 
 test.describe('Task Creation', () => {
   let tasksPage: TasksPage;
   let taskFormPage: TaskFormPage;
 
   test.beforeEach(async ({ page }) => {
+    await resetDatabase(page);
     tasksPage = new TasksPage(page);
     taskFormPage = new TaskFormPage(page);
     await tasksPage.goto();
+    await waitForTasksLoaded(page);
   });
 
   test('should open the task creation form when clicking New Task button', async ({ page }) => {
@@ -22,18 +25,16 @@ test.describe('Task Creation', () => {
     await tasksPage.clickNewTask();
     
     await taskFormPage.createTask({
-      title: 'E2E Test Task Creation',
+      title: 'E2E Test Task',
       description: 'This task was created during E2E testing with Playwright',
       priority: 'High',
       assignedTo: 'QA Team',
       category: 'Testing',
     });
 
-    await page.waitForTimeout(1000);
-    const taskCard = tasksPage.getTaskCardByTitle('E2E Test Task Creation');
-    await expect(taskCard.first()).toBeVisible({ timeout: 5000 });
+    await waitForTaskCreated(page, 'E2E Test Task');
     
-    const priority = await tasksPage.getTaskPriority('E2E Test Task Creation');
+    const priority = await tasksPage.getTaskPriority('E2E Test Task');
     expect(priority).toContain('High');
   });
 
@@ -46,7 +47,6 @@ test.describe('Task Creation', () => {
     });
     
     await taskFormPage.submitForm();
-    await page.waitForTimeout(1000);
     
     await expect(taskFormPage.formTitle).toBeVisible();
   });
@@ -60,7 +60,6 @@ test.describe('Task Creation', () => {
     });
     
     await taskFormPage.submitForm();
-    await page.waitForTimeout(1000);
     
     await expect(taskFormPage.formTitle).toBeVisible();
   });
@@ -75,22 +74,19 @@ test.describe('Task Creation', () => {
   });
 
   test('should create multiple tasks with different priorities', async ({ page }) => {
-    const timestamp = Date.now();
     const tasks = [
-      { title: `Low Priority ${timestamp}`, description: 'This is a low priority task for testing', priority: 'Low' },
-      { title: `Medium Priority ${timestamp}`, description: 'This is a medium priority task for testing', priority: 'Medium' },
-      { title: `High Priority ${timestamp}`, description: 'This is a high priority task for testing', priority: 'High' },
+      { title: 'Low Priority Task', description: 'This is a low priority task for testing', priority: 'Low' },
+      { title: 'Medium Priority Task', description: 'This is a medium priority task for testing', priority: 'Medium' },
+      { title: 'High Priority Task', description: 'This is a high priority task for testing', priority: 'High' },
     ];
 
     for (const task of tasks) {
       await tasksPage.clickNewTask();
       await taskFormPage.createTask(task);
-      await page.waitForTimeout(800);
-      const taskCard = tasksPage.getTaskCardByTitle(task.title);
-      await expect(taskCard.first()).toBeVisible({ timeout: 5000 });
+      await waitForTaskCreated(page, task.title);
     }
 
     const taskCount = await tasksPage.getTaskCount();
-    expect(taskCount).toBeGreaterThanOrEqual(3);
+    expect(taskCount).toBe(3);
   });
 });

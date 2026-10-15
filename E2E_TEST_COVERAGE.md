@@ -40,9 +40,9 @@ All E2E tests use **Page Object Model** pattern with reusable page classes (`Tas
    - Verifies each task appears correctly in the task list
    - Verifies the task count increases accordingly
 
-6. **Create task with timestamp uniqueness**
-   - Creates tasks with unique timestamps to avoid duplicates
-   - Ensures test isolation between runs
+6. **Test isolation via database reset**
+   - Database is reset before each test via API endpoint
+   - Ensures clean state and test independence
 
 ---
 
@@ -192,11 +192,12 @@ npm run test:report
 
 ## ✅ Test Reliability Features
 
-- **Unique timestamps**: Each test uses `Date.now()` to create unique task names, avoiding conflicts
-- **Proper waits**: Uses `page.waitForTimeout()` after mutations to ensure UI updates
+- **Database reset before each test**: Uses `/api/test/reset` endpoint to ensure clean state
+- **No fixed sleeps**: Web-first assertions (`expect().toBeVisible()`, `waitForResponse`) instead of `page.waitForTimeout()`
+- **Independent test data**: Each test uses unique, predictable task names (no `Date.now()` workarounds)
 - **Dialog handling**: Handles browser confirmation dialogs for delete operations
-- **First element selection**: Uses `.first()` when multiple elements match to avoid strict mode violations
-- **Explicit timeouts**: Uses `{ timeout: 5000 }` for visibility checks
+- **Serialized execution**: `workers: 1` to avoid race conditions between tests
+- **Network-aware**: `waitForLoadState('networkidle')` for filter operations
 
 ---
 

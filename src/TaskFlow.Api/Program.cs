@@ -62,6 +62,19 @@ if (app.Environment.IsDevelopment())
 app.UseCors();
 app.UseHttpsRedirection();
 
+if (app.Environment.IsDevelopment())
+{
+    app.MapPost("/api/test/reset", async (TaskFlowContext dbContext) =>
+    {
+        await dbContext.Database.EnsureDeletedAsync();
+        await dbContext.Database.EnsureCreatedAsync();
+        return Results.Ok(new { message = "Database reset successfully" });
+    })
+    .WithName("ResetDatabase")
+    .WithOpenApi()
+    .Produces(200);
+}
+
 app.MapGet("/api/tasks", async (ITaskService taskService, TaskItemStatus? status, TaskPriority? priority) =>
 {
     var tasks = await taskService.GetAllTasksAsync(status, priority);
