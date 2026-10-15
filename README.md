@@ -1,12 +1,12 @@
 # TaskFlow - Task Management System
 
-[![CI Pipeline](https://github.com/pedro-augusto-code/taskflow-portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/pedro-augusto-code/taskflow-portfolio/actions/workflows/ci.yml)
+[![CI Pipeline](https://github.com/PedroAugusto-sys/taskflow/actions/workflows/ci.yml/badge.svg)](https://github.com/PedroAugusto-sys/taskflow/actions/workflows/ci.yml)
 
 A full-stack task management system built with **ASP.NET Core 8** and **React + TypeScript**, featuring comprehensive automated testing at all levels.
 
-> **Portfolio Project by Pedro Augusto**  
-> QA Automation Engineer | .NET Developer  
-> 🌐 [pedrodevx.netlify.app](https://pedrodevx.netlify.app) | 💼 [LinkedIn](https://linkedin.com/in/pedro-augusto) | 🐙 [GitHub](https://github.com/pedro-augusto-code)
+> **Portfolio Project by Pedro Augusto Santos Andrade**  
+> Junior QA Automation / SDET  
+> 🌐 [pedrodevx.netlify.app](https://pedrodevx.netlify.app) | 🐙 [GitHub](https://github.com/PedroAugusto-sys)
 
 ---
 
@@ -115,8 +115,8 @@ TaskFlow/
 
 ```bash
 # Clone the repository
-git clone https://github.com/pedro-augusto-code/taskflow-portfolio.git
-cd taskflow-portfolio
+git clone https://github.com/PedroAugusto-sys/taskflow.git
+cd taskflow
 
 # Start all services
 docker-compose up --build
@@ -421,7 +421,7 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ## 👤 About Me
 
-**Pedro Augusto** - QA Automation Engineer & .NET Developer
+**Pedro Augusto Santos Andrade** - Junior QA Automation / SDET
 
 I'm passionate about quality engineering and building robust, well-tested software. This project showcases my skills in:
 
@@ -433,8 +433,7 @@ I'm passionate about quality engineering and building robust, well-tested softwa
 
 ### Connect with me:
 - 🌐 Portfolio: [pedrodevx.netlify.app](https://pedrodevx.netlify.app)
-- 💼 LinkedIn: [linkedin.com/in/pedro-augusto](https://linkedin.com/in/pedro-augusto)
-- 🐙 GitHub: [github.com/pedro-augusto-code](https://github.com/pedro-augusto-code)
+- 🐙 GitHub: [github.com/PedroAugusto-sys](https://github.com/PedroAugusto-sys)
 
 ---
 

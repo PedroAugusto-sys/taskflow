@@ -18,7 +18,7 @@ builder.Services.AddSwaggerGen(options =>
         Description = "A task management system API built with ASP.NET Core 8",
         Contact = new Microsoft.OpenApi.Models.OpenApiContact
         {
-            Name = "Pedro Augusto",
+            Name = "Pedro Augusto Santos Andrade",
             Url = new Uri("https://pedrodevx.netlify.app")
         }
     });
