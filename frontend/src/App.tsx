@@ -3,10 +3,10 @@ import { useTasks } from './hooks/useTasks';
 import { TaskCard } from './components/TaskCard';
 import { TaskForm } from './components/TaskForm';
 import type { TaskItem, UpdateTaskItem, CreateTaskItem } from './types/task';
-import { TaskStatus, TaskPriority, taskStatusLabels, taskPriorityLabels } from './types/task';
+import { TaskItemStatus, TaskPriority, taskStatusLabels, taskPriorityLabels } from './types/task';
 
 function App() {
-  const [filterStatus, setFilterStatus] = useState<TaskStatus | undefined>(undefined);
+  const [filterStatus, setFilterStatus] = useState<TaskItemStatus | undefined>(undefined);
   const [filterPriority, setFilterPriority] = useState<TaskPriority | undefined>(undefined);
   const [showForm, setShowForm] = useState(false);
   const [editingTask, setEditingTask] = useState<TaskItem | null>(null);
@@ -38,9 +38,9 @@ function App() {
   };
 
   const handleStatusChange = async (task: TaskItem) => {
-    const nextStatus = task.status === TaskStatus.Open 
-      ? TaskStatus.InProgress 
-      : TaskStatus.Completed;
+    const nextStatus = task.status === TaskItemStatus.Open 
+      ? TaskItemStatus.InProgress 
+      : TaskItemStatus.Completed;
     
     await updateTask(task.id, { status: nextStatus });
   };
@@ -92,7 +92,7 @@ function App() {
               <select
                 id="filterStatus"
                 value={filterStatus ?? ''}
-                onChange={(e) => setFilterStatus(e.target.value ? Number(e.target.value) as TaskStatus : undefined)}
+                onChange={(e) => setFilterStatus(e.target.value ? Number(e.target.value) as TaskItemStatus : undefined)}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
                 <option value="">All Statuses</option>

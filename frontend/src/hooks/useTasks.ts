@@ -1,8 +1,8 @@
 import { useState, useEffect, useCallback } from 'react';
 import { taskService } from '../services/taskService';
-import type { TaskItem, CreateTaskItem, UpdateTaskItem, TaskStatus, TaskPriority } from '../types/task';
+import type { TaskItem, CreateTaskItem, UpdateTaskItem, TaskItemStatus, TaskPriority } from '../types/task';
 
-export function useTasks(filterStatus?: TaskStatus, filterPriority?: TaskPriority) {
+export function useTasks(filterStatus?: TaskItemStatus, filterPriority?: TaskPriority) {
   const [tasks, setTasks] = useState<TaskItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

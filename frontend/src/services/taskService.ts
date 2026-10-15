@@ -3,7 +3,7 @@ import type {
   TaskItem,
   CreateTaskItem,
   UpdateTaskItem,
-  TaskStatus,
+  TaskItemStatus,
   TaskPriority,
 } from '../types/task';
 
@@ -17,7 +17,7 @@ const api = axios.create({
 });
 
 export const taskService = {
-  async getAllTasks(status?: TaskStatus, priority?: TaskPriority): Promise<TaskItem[]> {
+  async getAllTasks(status?: TaskItemStatus, priority?: TaskPriority): Promise<TaskItem[]> {
     const params = new URLSearchParams();
     if (status !== undefined) params.append('status', status.toString());
     if (priority !== undefined) params.append('priority', priority.toString());

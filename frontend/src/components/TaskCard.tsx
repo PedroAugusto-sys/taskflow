@@ -1,5 +1,5 @@
 import type { TaskItem } from '../types/task';
-import { taskStatusLabels, taskPriorityLabels, TaskStatus } from '../types/task';
+import { taskStatusLabels, taskPriorityLabels, TaskItemStatus } from '../types/task';
 
 interface TaskCardProps {
   task: TaskItem;
@@ -25,11 +25,11 @@ export function TaskCard({ task, onEdit, onDelete, onStatusChange }: TaskCardPro
   };
 
   const getStatusAction = () => {
-    if (task.status === TaskStatus.Open) {
-      return { label: 'Start', nextStatus: TaskStatus.InProgress };
+    if (task.status === TaskItemStatus.Open) {
+      return { label: 'Start', nextStatus: TaskItemStatus.InProgress };
     }
-    if (task.status === TaskStatus.InProgress) {
-      return { label: 'Complete', nextStatus: TaskStatus.Completed };
+    if (task.status === TaskItemStatus.InProgress) {
+      return { label: 'Complete', nextStatus: TaskItemStatus.Completed };
     }
     return null;
   };

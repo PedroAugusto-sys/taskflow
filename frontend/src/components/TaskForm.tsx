@@ -1,6 +1,6 @@
 import { useState, useEffect, type FormEvent } from 'react';
 import type { TaskItem, CreateTaskItem, UpdateTaskItem } from '../types/task';
-import { TaskPriority, TaskStatus, taskPriorityLabels, taskStatusLabels } from '../types/task';
+import { TaskPriority, TaskItemStatus, taskPriorityLabels, taskStatusLabels } from '../types/task';
 
 interface TaskFormProps {
   task?: TaskItem | null;
@@ -12,7 +12,7 @@ export function TaskForm({ task, onSubmit, onCancel }: TaskFormProps) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [priority, setPriority] = useState<TaskPriority>(TaskPriority.Medium);
-  const [status, setStatus] = useState<TaskStatus>(TaskStatus.Open);
+  const [status, setStatus] = useState<TaskItemStatus>(TaskItemStatus.Open);
   const [assignedTo, setAssignedTo] = useState('');
   const [category, setCategory] = useState('');
   const [submitting, setSubmitting] = useState(false);
@@ -30,7 +30,7 @@ export function TaskForm({ task, onSubmit, onCancel }: TaskFormProps) {
       setTitle('');
       setDescription('');
       setPriority(TaskPriority.Medium);
-      setStatus(TaskStatus.Open);
+      setStatus(TaskItemStatus.Open);
       setAssignedTo('');
       setCategory('');
     }
@@ -155,7 +155,7 @@ export function TaskForm({ task, onSubmit, onCancel }: TaskFormProps) {
                     <select
                       id="status"
                       value={status}
-                      onChange={(e) => setStatus(Number(e.target.value) as TaskStatus)}
+                      onChange={(e) => setStatus(Number(e.target.value) as TaskItemStatus)}
                       className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
                       {Object.entries(taskStatusLabels).map(([value, label]) => (

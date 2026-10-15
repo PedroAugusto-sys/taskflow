@@ -1,4 +1,4 @@
-export enum TaskStatus {
+export enum TaskItemStatus {
   Open = 0,
   InProgress = 1,
   UnderReview = 2,
@@ -17,7 +17,7 @@ export interface TaskItem {
   id: number;
   title: string;
   description: string;
-  status: TaskStatus;
+  status: TaskItemStatus;
   priority: TaskPriority;
   createdAt: string;
   updatedAt: string | null;
@@ -37,18 +37,18 @@ export interface CreateTaskItem {
 export interface UpdateTaskItem {
   title?: string;
   description?: string;
-  status?: TaskStatus;
+  status?: TaskItemStatus;
   priority?: TaskPriority;
   assignedTo?: string;
   category?: string;
 }
 
-export const taskStatusLabels: Record<TaskStatus, string> = {
-  [TaskStatus.Open]: 'Open',
-  [TaskStatus.InProgress]: 'In Progress',
-  [TaskStatus.UnderReview]: 'Under Review',
-  [TaskStatus.Completed]: 'Completed',
-  [TaskStatus.Cancelled]: 'Cancelled',
+export const taskStatusLabels: Record<TaskItemStatus, string> = {
+  [TaskItemStatus.Open]: 'Open',
+  [TaskItemStatus.InProgress]: 'In Progress',
+  [TaskItemStatus.UnderReview]: 'Under Review',
+  [TaskItemStatus.Completed]: 'Completed',
+  [TaskItemStatus.Cancelled]: 'Cancelled',
 };
 
 export const taskPriorityLabels: Record<TaskPriority, string> = {
