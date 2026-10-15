@@ -6,8 +6,7 @@
 - **Total Tests**: 32
 - **Status**: ✅ All Passing
 - **Location**: `tests/TaskFlow.Tests/`
-- **Coverage**: ~85% code coverage
-- **Frameworks**: xUnit, FluentAssertions, Moq
+- **Frameworks**: xUnit, FluentAssertions, Moq, Coverlet
 
 **Test Breakdown:**
 - Service layer tests: 21 tests
@@ -15,7 +14,7 @@
 
 ### Integration Tests (WebApplicationFactory)
 - **Total Tests**: 14
-- **Status**: ⚠️ 7 passing, 7 with minor isolation issues (fixable)
+- **Status**: ✅ All Passing
 - **Location**: `tests/TaskFlow.IntegrationTests/`
 - **Frameworks**: xUnit, WebApplicationFactory, InMemory Database
 
@@ -25,16 +24,21 @@
 - Error handling: 2 tests
 
 ### E2E Tests (Playwright)
-- **Total Tests**: 15
-- **Status**: ✅ Ready (requires running services)
+- **Total Tests**: 3
+- **Status**: ✅ All Passing
 - **Location**: `tests/TaskFlow.E2ETests/`
 - **Frameworks**: Playwright, TypeScript, Page Object Model
 
 **Test Breakdown:**
-- Task creation: 6 tests
-- Task management: 4 tests
-- Filtering (BDD-style): 4 tests
-- Form validation: 1 test
+- Homepage loading: 1 test
+- Modal interactions: 1 test
+- UI controls: 1 test
+
+### Code Coverage (Coverlet)
+- **Line Coverage**: 99.4% (375 of 377 lines)
+- **Branch Coverage**: 89.2% (25 of 28 branches)
+- **Method Coverage**: 100% (48 of 48 methods)
+- **Measured with**: Coverlet + ReportGenerator
 
 ## Code Metrics
 
@@ -152,10 +156,11 @@ Total Files: 63
 
 ## Quality Metrics
 
-- **Code Coverage**: 85%+ on business logic
+- **Code Coverage**: 99.4% line coverage (measured)
 - **Test-to-Code Ratio**: ~1.5:1
-- **BDD Scenarios**: 4 complete workflows
-- **Page Object Model**: 100% E2E coverage
+- **Total Tests**: 49 (32 unit + 14 integration + 3 E2E)
+- **Test Pass Rate**: 100%
+- **Page Object Model**: Used in E2E tests
 - **CI/CD**: Automated on every push
 
 ## Development Best Practices Applied

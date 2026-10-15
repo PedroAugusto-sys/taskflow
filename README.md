@@ -187,7 +187,7 @@ This project implements the **Test Pyramid** with three distinct testing layers:
 
 **Technologies:** xUnit, FluentAssertions, Moq, InMemory Database
 
-**Coverage:** ~80%+ code coverage
+**Coverage:** 99.4% line coverage (measured with Coverlet)
 
 ```bash
 # Run unit tests
@@ -223,15 +223,13 @@ dotnet test tests/TaskFlow.IntegrationTests/
 - ✅ JSON serialization/deserialization
 - ✅ End-to-end data flow through all layers
 
-### 3. E2E Tests (15+ tests)
+### 3. E2E Tests (3 tests)
 
 **Location:** `tests/TaskFlow.E2ETests/`
 
-**Focus:** User workflows, UI interactions, cross-browser compatibility
+**Focus:** Critical user workflows and smoke testing
 
 **Technologies:** Playwright (TypeScript), Page Object Model
-
-**BDD-style scenarios included** ✨
 
 ```bash
 # Install Playwright browsers (first time only)
@@ -252,13 +250,9 @@ npm run test:report
 ```
 
 **What they test:**
-- ✅ Task creation with validation
-- ✅ Task editing and updates
-- ✅ Task deletion with confirmation
-- ✅ Status progression (Open → In Progress → Completed)
-- ✅ Filtering by status and priority
-- ✅ Form validation messages
-- ✅ Responsive UI behavior
+- ✅ Application loads and renders correctly
+- ✅ Task creation modal opens and closes
+- ✅ Filter controls are visible and functional
 
 **BDD-style example:**
 
@@ -285,7 +279,10 @@ test('Scenario: Filter tasks by status', async ({ page }) => {
 dotnet test
 
 # E2E tests (requires backend and frontend running)
-cd tests/TaskFlow.E2ETests && npm test
+cd tests/TaskFlow.E2ETests
+npm install
+npx playwright install chromium
+npm test basic.spec.ts
 ```
 
 ### CI Pipeline
