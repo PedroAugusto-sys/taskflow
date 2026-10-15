@@ -33,14 +33,14 @@ All tests passing, real code coverage measured, CI/CD functional.
 
 ### E2E Tests (Playwright)
 ```
-✅ 3/3 PASSING (100%)
+✅ 14/14 PASSING (100%)
 ```
 
 **Details:**
-- Homepage load test
-- Modal interaction test
-- UI controls test
-- Duration: ~2.3s
+- Task creation with validation: 6 tests
+- Task management (edit, delete, status): 4 tests
+- Filtering (status, priority, combined): 4 tests (BDD-style)
+- Duration: ~20s
 - Framework: Playwright + TypeScript + Page Object Model
 
 ---
@@ -66,11 +66,11 @@ Method Coverage:  100.0% (48/48 methods)
 ## 🎯 Total Test Count
 
 ```
-TOTAL: 49 TESTS PASSING
+TOTAL: 60 TESTS PASSING
 ━━━━━━━━━━━━━━━━━━━━━━
 Unit:        32 tests ✅
 Integration: 14 tests ✅
-E2E:          3 tests ✅
+E2E:         14 tests ✅
 ━━━━━━━━━━━━━━━━━━━━━━
 Pass Rate: 100%
 ```

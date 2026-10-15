@@ -171,15 +171,15 @@ This project implements the **Test Pyramid** with three distinct testing layers:
 ```
            /\
           /  \
-         /E2E \ ← 15 tests (UI workflows)
+         /E2E \ ← 14 tests (UI workflows, BDD)
         /------\
-       /  API  \ ← 10 tests (HTTP endpoints)
+       /  API  \ ← 14 tests (HTTP endpoints)
       /--------\
-     /   UNIT   \ ← 25+ tests (business logic)
+     /   UNIT   \ ← 32 tests (business logic)
     /___________\
 ```
 
-### 1. Unit Tests (25+ tests)
+### 1. Unit Tests (32 tests)
 
 **Location:** `tests/TaskFlow.Tests/`
 
@@ -187,7 +187,7 @@ This project implements the **Test Pyramid** with three distinct testing layers:
 
 **Technologies:** xUnit, FluentAssertions, Moq, InMemory Database
 
-**Coverage:** 99.4% line coverage (measured with Coverlet)
+**Coverage:** 99.4% line coverage, 89.2% branch coverage (measured with Coverlet)
 
 ```bash
 # Run unit tests
@@ -203,7 +203,7 @@ dotnet test tests/TaskFlow.Tests/ --collect:"XPlat Code Coverage"
 - ✅ Edge cases and error handling
 - ✅ Business rule enforcement
 
-### 2. Integration Tests (10+ tests)
+### 2. Integration Tests (14 tests)
 
 **Location:** `tests/TaskFlow.IntegrationTests/`
 
@@ -223,11 +223,11 @@ dotnet test tests/TaskFlow.IntegrationTests/
 - ✅ JSON serialization/deserialization
 - ✅ End-to-end data flow through all layers
 
-### 3. E2E Tests (3 tests)
+### 3. E2E Tests (14 tests)
 
 **Location:** `tests/TaskFlow.E2ETests/`
 
-**Focus:** Critical user workflows and smoke testing
+**Focus:** User workflows with Page Object Model and BDD scenarios
 
 **Technologies:** Playwright (TypeScript), Page Object Model
 
@@ -250,9 +250,10 @@ npm run test:report
 ```
 
 **What they test:**
-- ✅ Application loads and renders correctly
-- ✅ Task creation modal opens and closes
-- ✅ Filter controls are visible and functional
+- ✅ Task creation with validation (6 tests)
+- ✅ Task editing and status changes (4 tests)
+- ✅ Filtering by status and priority - BDD-style (4 tests)
+- ✅ Page Object Model pattern for maintainability
 
 **BDD-style example:**
 
@@ -282,7 +283,7 @@ dotnet test
 cd tests/TaskFlow.E2ETests
 npm install
 npx playwright install chromium
-npm test basic.spec.ts
+npm test
 ```
 
 ### CI Pipeline

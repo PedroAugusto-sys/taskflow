@@ -24,15 +24,15 @@
 - Error handling: 2 tests
 
 ### E2E Tests (Playwright)
-- **Total Tests**: 3
+- **Total Tests**: 14
 - **Status**: ✅ All Passing
 - **Location**: `tests/TaskFlow.E2ETests/`
 - **Frameworks**: Playwright, TypeScript, Page Object Model
 
 **Test Breakdown:**
-- Homepage loading: 1 test
-- Modal interactions: 1 test
-- UI controls: 1 test
+- Task creation with validation: 6 tests
+- Task management (edit, delete, status): 4 tests
+- Filtering (status, priority, combined): 4 tests (BDD-style)
 
 ### Code Coverage (Coverlet)
 - **Line Coverage**: 99.4% (375 of 377 lines)
@@ -119,9 +119,9 @@ Total Files: 63
 ## Test Execution Times
 
 - Unit Tests: ~0.5 seconds
-- Integration Tests: ~2 seconds
-- E2E Tests: ~10-15 seconds
-- **Total**: ~15-20 seconds locally
+- Integration Tests: ~2.5 seconds
+- E2E Tests: ~20 seconds
+- **Total**: ~23 seconds locally
 
 ## Key Features Tested
 
@@ -158,7 +158,7 @@ Total Files: 63
 
 - **Code Coverage**: 99.4% line coverage (measured)
 - **Test-to-Code Ratio**: ~1.5:1
-- **Total Tests**: 49 (32 unit + 14 integration + 3 E2E)
+- **Total Tests**: 60 (32 unit + 14 integration + 14 E2E)
 - **Test Pass Rate**: 100%
 - **Page Object Model**: Used in E2E tests
 - **CI/CD**: Automated on every push

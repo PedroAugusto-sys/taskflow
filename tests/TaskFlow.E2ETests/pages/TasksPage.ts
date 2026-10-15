@@ -36,7 +36,7 @@ export class TasksPage {
     return await this.taskCards.count();
   }
 
-  async getTaskCardByTitle(title: string): Locator {
+  getTaskCardByTitle(title: string): Locator {
     return this.page.locator(`[class*="bg-white rounded-lg shadow-md"]:has-text("${title}")`);
   }
 
