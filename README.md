@@ -123,8 +123,8 @@ docker-compose up --build
 
 # Access the application
 # Frontend: http://localhost:5173
-# API: http://localhost:5000
-# Swagger: http://localhost:5000/swagger
+# API: http://localhost:5020
+# Swagger: http://localhost:5020
 ```
 
 ### Option 2: Run Locally
@@ -141,8 +141,8 @@ dotnet restore
 # Run the API
 dotnet run
 
-# API will be available at http://localhost:5000
-# Swagger UI at http://localhost:5000
+# API will be available at http://localhost:5020 (or check terminal output)
+# Swagger UI at http://localhost:5020
 ```
 
 #### Frontend
@@ -303,7 +303,7 @@ The GitHub Actions pipeline runs:
 
 ### Base URL
 ```
-http://localhost:5000/api
+http://localhost:5020/api
 ```
 
 ### Endpoints
@@ -351,7 +351,7 @@ DELETE /api/tasks/{id}
 
 ### Swagger UI
 
-Full interactive API documentation available at: `http://localhost:5000`
+Full interactive API documentation available at: `http://localhost:5020`
 
 ---
 
