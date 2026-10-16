@@ -1,0 +1,435 @@
+
+> taskflow.e2etests@1.0.0 test
+> playwright test
+
+
+Running 14 tests using 2 workers
+
+(node:9112) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:9111) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:9112) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:9111) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   2 [chromium] › tests/task-creation.spec.ts:15:7 › Task Creation › should open the task creation form when clicking New Task button (365ms)
+  ✘   1 [chromium] › tests/task-creation.spec.ts:21:7 › Task Creation › should create a new task with valid data (436ms)
+(node:9291) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘   3 [chromium] › tests/task-creation.spec.ts:37:7 › Task Creation › should show validation error when title is too short (365ms)
+(node:9291) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:9305) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:9305) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘   4 [chromium] › tests/task-creation.spec.ts:51:7 › Task Creation › should show validation error when description is too short (351ms)
+(node:9456) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   5 [chromium] › tests/task-creation.spec.ts:65:7 › Task Creation › should close form without creating task when clicking Cancel (389ms)
+(node:9456) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘   6 [chromium] › tests/task-filtering.spec.ts:15:7 › Task Filtering - BDD Style › Scenario: Filter tasks by status (400ms)
+  ✘   7 [chromium] › tests/task-creation.spec.ts:74:7 › Task Creation › should create multiple tasks with different priorities (383ms)
+(node:9559) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:9559) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:9567) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:9567) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘   8 [chromium] › tests/task-filtering.spec.ts:43:7 › Task Filtering - BDD Style › Scenario: Filter tasks by priority (395ms)
+  ✘   9 [chromium] › tests/task-filtering.spec.ts:71:7 › Task Filtering - BDD Style › Scenario: Clear all filters (358ms)
+(node:9725) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:9725) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:9734) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:9734) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  10 [chromium] › tests/task-filtering.spec.ts:93:7 › Task Filtering - BDD Style › Scenario: Combine status and priority filters (408ms)
+  ✘  11 [chromium] › tests/task-management.spec.ts:15:7 › Task Management › should update an existing task (376ms)
+(node:9892) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:9892) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:9901) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:9901) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  12 [chromium] › tests/task-management.spec.ts:35:7 › Task Management › should delete a task (374ms)
+  ✘  13 [chromium] › tests/task-management.spec.ts:52:7 › Task Management › should change task status from Open to In Progress (344ms)
+(node:10053) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:10053) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  14 [chromium] › tests/task-management.spec.ts:69:7 › Task Management › should change task status from In Progress to Completed (337ms)
+
+
+  1) [chromium] › tests/task-creation.spec.ts:21:7 › Task Creation › should create a new task with valid data 
+
+    Error: locator.click: Error: strict mode violation: getByRole('button', { name: /(create task|update task)/i }) resolved to 2 elements:
+        1) <button class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors">Create Task</button> aka getByRole('main').getByRole('button', { name: 'Create Task' })
+        2) <button type="submit" class="flex-1 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 disabled:bg-blue-300 disabled:cursor-not-allowed transition-colors font-medium">Create Task</button> aka locator('form').getByRole('button', { name: 'Create Task' })
+
+    Call log:
+      - waiting for getByRole('button', { name: /(create task|update task)/i })
+
+
+       at ../pages/TaskFormPage.ts:63
+
+      61 |
+      62 |   async submitForm() {
+    > 63 |     await this.submitButton.click();
+         |                             ^
+      64 |   }
+      65 |
+      66 |   async cancel() {
+        at TaskFormPage.submitForm (/workspace/tests/TaskFlow.E2ETests/pages/TaskFormPage.ts:63:29)
+        at TaskFormPage.createTask (/workspace/tests/TaskFlow.E2ETests/pages/TaskFormPage.ts:85:16)
+        at /workspace/tests/TaskFlow.E2ETests/tests/task-creation.spec.ts:24:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/task-creation-Task-Creatio-c415f--a-new-task-with-valid-data-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/task-creation-Task-Creatio-c415f--a-new-task-with-valid-data-chromium/error-context.md
+
+  2) [chromium] › tests/task-creation.spec.ts:37:7 › Task Creation › should show validation error when title is too short 
+
+    Error: locator.click: Error: strict mode violation: getByRole('button', { name: /(create task|update task)/i }) resolved to 2 elements:
+        1) <button class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors">Create Task</button> aka getByRole('main').getByRole('button', { name: 'Create Task' })
+        2) <button type="submit" class="flex-1 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 disabled:bg-blue-300 disabled:cursor-not-allowed transition-colors font-medium">Create Task</button> aka locator('form').getByRole('button', { name: 'Create Task' })
+
+    Call log:
+      - waiting for getByRole('button', { name: /(create task|update task)/i })
+
+
+       at ../pages/TaskFormPage.ts:63
+
+      61 |
+      62 |   async submitForm() {
+    > 63 |     await this.submitButton.click();
+         |                             ^
+      64 |   }
+      65 |
+      66 |   async cancel() {
+        at TaskFormPage.submitForm (/workspace/tests/TaskFlow.E2ETests/pages/TaskFormPage.ts:63:29)
+        at /workspace/tests/TaskFlow.E2ETests/tests/task-creation.spec.ts:45:24
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/task-creation-Task-Creatio-e244b-ror-when-title-is-too-short-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/task-creation-Task-Creatio-e244b-ror-when-title-is-too-short-chromium/error-context.md
+
+  3) [chromium] › tests/task-creation.spec.ts:51:7 › Task Creation › should show validation error when description is too short 
+
+    Error: locator.click: Error: strict mode violation: getByRole('button', { name: /(create task|update task)/i }) resolved to 2 elements:
+        1) <button class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors">Create Task</button> aka getByRole('main').getByRole('button', { name: 'Create Task' })
+        2) <button type="submit" class="flex-1 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 disabled:bg-blue-300 disabled:cursor-not-allowed transition-colors font-medium">Create Task</button> aka locator('form').getByRole('button', { name: 'Create Task' })
+
+    Call log:
+      - waiting for getByRole('button', { name: /(create task|update task)/i })
+
+
+       at ../pages/TaskFormPage.ts:63
+
+      61 |
+      62 |   async submitForm() {
+    > 63 |     await this.submitButton.click();
+         |                             ^
+      64 |   }
+      65 |
+      66 |   async cancel() {
+        at TaskFormPage.submitForm (/workspace/tests/TaskFlow.E2ETests/pages/TaskFormPage.ts:63:29)
+        at /workspace/tests/TaskFlow.E2ETests/tests/task-creation.spec.ts:59:24
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/task-creation-Task-Creatio-4bfe2-en-description-is-too-short-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/task-creation-Task-Creatio-4bfe2-en-description-is-too-short-chromium/error-context.md
+
+  4) [chromium] › tests/task-creation.spec.ts:74:7 › Task Creation › should create multiple tasks with different priorities 
+
+    Error: locator.click: Error: strict mode violation: getByRole('button', { name: /(create task|update task)/i }) resolved to 2 elements:
+        1) <button class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors">Create Task</button> aka getByRole('main').getByRole('button', { name: 'Create Task' })
+        2) <button type="submit" class="flex-1 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 disabled:bg-blue-300 disabled:cursor-not-allowed transition-colors font-medium">Create Task</button> aka locator('form').getByRole('button', { name: 'Create Task' })
+
+    Call log:
+      - waiting for getByRole('button', { name: /(create task|update task)/i })
+
+
+       at ../pages/TaskFormPage.ts:63
+
+      61 |
+      62 |   async submitForm() {
+    > 63 |     await this.submitButton.click();
+         |                             ^
+      64 |   }
+      65 |
+      66 |   async cancel() {
+        at TaskFormPage.submitForm (/workspace/tests/TaskFlow.E2ETests/pages/TaskFormPage.ts:63:29)
+        at TaskFormPage.createTask (/workspace/tests/TaskFlow.E2ETests/pages/TaskFormPage.ts:85:16)
+        at /workspace/tests/TaskFlow.E2ETests/tests/task-creation.spec.ts:83:7
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/task-creation-Task-Creatio-8991e-s-with-different-priorities-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/task-creation-Task-Creatio-8991e-s-with-different-priorities-chromium/error-context.md
+
+  5) [chromium] › tests/task-filtering.spec.ts:15:7 › Task Filtering - BDD Style › Scenario: Filter tasks by status › Given I have tasks with different statuses 
+
+    Error: locator.click: Error: strict mode violation: getByRole('button', { name: /(create task|update task)/i }) resolved to 2 elements:
+        1) <button class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors">Create Task</button> aka getByRole('main').getByRole('button', { name: 'Create Task' })
+        2) <button type="submit" class="flex-1 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 disabled:bg-blue-300 disabled:cursor-not-allowed transition-colors font-medium">Create Task</button> aka locator('form').getByRole('button', { name: 'Create Task' })
+
+    Call log:
+      - waiting for getByRole('button', { name: /(create task|update task)/i })
+
+
+       at ../pages/TaskFormPage.ts:63
+
+      61 |
+      62 |   async submitForm() {
+    > 63 |     await this.submitButton.click();
+         |                             ^
+      64 |   }
+      65 |
+      66 |   async cancel() {
+        at TaskFormPage.submitForm (/workspace/tests/TaskFlow.E2ETests/pages/TaskFormPage.ts:63:29)
+        at TaskFormPage.createTask (/workspace/tests/TaskFlow.E2ETests/pages/TaskFormPage.ts:85:16)
+        at /workspace/tests/TaskFlow.E2ETests/tests/task-filtering.spec.ts:18:7
+        at /workspace/tests/TaskFlow.E2ETests/tests/task-filtering.spec.ts:16:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/task-filtering-Task-Filter-c130e-ario-Filter-tasks-by-status-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/task-filtering-Task-Filter-c130e-ario-Filter-tasks-by-status-chromium/error-context.md
+
+  6) [chromium] › tests/task-filtering.spec.ts:43:7 › Task Filtering - BDD Style › Scenario: Filter tasks by priority › Given I have tasks with different priorities 
+
+    Error: locator.click: Error: strict mode violation: getByRole('button', { name: /(create task|update task)/i }) resolved to 2 elements:
+        1) <button class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors">Create Task</button> aka getByRole('main').getByRole('button', { name: 'Create Task' })
+        2) <button type="submit" class="flex-1 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 disabled:bg-blue-300 disabled:cursor-not-allowed transition-colors font-medium">Create Task</button> aka locator('form').getByRole('button', { name: 'Create Task' })
+
+    Call log:
+      - waiting for getByRole('button', { name: /(create task|update task)/i })
+
+
+       at ../pages/TaskFormPage.ts:63
+
+      61 |
+      62 |   async submitForm() {
+    > 63 |     await this.submitButton.click();
+         |                             ^
+      64 |   }
+      65 |
+      66 |   async cancel() {
+        at TaskFormPage.submitForm (/workspace/tests/TaskFlow.E2ETests/pages/TaskFormPage.ts:63:29)
+        at TaskFormPage.createTask (/workspace/tests/TaskFlow.E2ETests/pages/TaskFormPage.ts:85:16)
+        at /workspace/tests/TaskFlow.E2ETests/tests/task-filtering.spec.ts:46:7
+        at /workspace/tests/TaskFlow.E2ETests/tests/task-filtering.spec.ts:44:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/task-filtering-Task-Filter-5a496-io-Filter-tasks-by-priority-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/task-filtering-Task-Filter-5a496-io-Filter-tasks-by-priority-chromium/error-context.md
+
+  7) [chromium] › tests/task-filtering.spec.ts:71:7 › Task Filtering - BDD Style › Scenario: Clear all filters › Given I have applied filters 
+
+    Error: locator.click: Error: strict mode violation: getByRole('button', { name: /(create task|update task)/i }) resolved to 2 elements:
+        1) <button class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors">Create Task</button> aka getByRole('main').getByRole('button', { name: 'Create Task' })
+        2) <button type="submit" class="flex-1 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 disabled:bg-blue-300 disabled:cursor-not-allowed transition-colors font-medium">Create Task</button> aka locator('form').getByRole('button', { name: 'Create Task' })
+
+    Call log:
+      - waiting for getByRole('button', { name: /(create task|update task)/i })
+
+
+       at ../pages/TaskFormPage.ts:63
+
+      61 |
+      62 |   async submitForm() {
+    > 63 |     await this.submitButton.click();
+         |                             ^
+      64 |   }
+      65 |
+      66 |   async cancel() {
+        at TaskFormPage.submitForm (/workspace/tests/TaskFlow.E2ETests/pages/TaskFormPage.ts:63:29)
+        at TaskFormPage.createTask (/workspace/tests/TaskFlow.E2ETests/pages/TaskFormPage.ts:85:16)
+        at /workspace/tests/TaskFlow.E2ETests/tests/task-filtering.spec.ts:74:7
+        at /workspace/tests/TaskFlow.E2ETests/tests/task-filtering.spec.ts:72:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/task-filtering-Task-Filter-51f19--Scenario-Clear-all-filters-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/task-filtering-Task-Filter-51f19--Scenario-Clear-all-filters-chromium/error-context.md
+
+  8) [chromium] › tests/task-filtering.spec.ts:93:7 › Task Filtering - BDD Style › Scenario: Combine status and priority filters › Given I have tasks with various statuses and priorities 
+
+    Error: locator.click: Error: strict mode violation: getByRole('button', { name: /(create task|update task)/i }) resolved to 2 elements:
+        1) <button class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors">Create Task</button> aka getByRole('main').getByRole('button', { name: 'Create Task' })
+        2) <button type="submit" class="flex-1 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 disabled:bg-blue-300 disabled:cursor-not-allowed transition-colors font-medium">Create Task</button> aka locator('form').getByRole('button', { name: 'Create Task' })
+
+    Call log:
+      - waiting for getByRole('button', { name: /(create task|update task)/i })
+
+
+       at ../pages/TaskFormPage.ts:63
+
+      61 |
+      62 |   async submitForm() {
+    > 63 |     await this.submitButton.click();
+         |                             ^
+      64 |   }
+      65 |
+      66 |   async cancel() {
+        at TaskFormPage.submitForm (/workspace/tests/TaskFlow.E2ETests/pages/TaskFormPage.ts:63:29)
+        at TaskFormPage.createTask (/workspace/tests/TaskFlow.E2ETests/pages/TaskFormPage.ts:85:16)
+        at /workspace/tests/TaskFlow.E2ETests/tests/task-filtering.spec.ts:96:7
+        at /workspace/tests/TaskFlow.E2ETests/tests/task-filtering.spec.ts:94:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/task-filtering-Task-Filter-ace0d-status-and-priority-filters-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/task-filtering-Task-Filter-ace0d-status-and-priority-filters-chromium/error-context.md
+
+  9) [chromium] › tests/task-management.spec.ts:15:7 › Task Management › should update an existing task 
+
+    Error: locator.click: Error: strict mode violation: getByRole('button', { name: /(create task|update task)/i }) resolved to 2 elements:
+        1) <button class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors">Create Task</button> aka getByRole('main').getByRole('button', { name: 'Create Task' })
+        2) <button type="submit" class="flex-1 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 disabled:bg-blue-300 disabled:cursor-not-allowed transition-colors font-medium">Create Task</button> aka locator('form').getByRole('button', { name: 'Create Task' })
+
+    Call log:
+      - waiting for getByRole('button', { name: /(create task|update task)/i })
+
+
+       at ../pages/TaskFormPage.ts:63
+
+      61 |
+      62 |   async submitForm() {
+    > 63 |     await this.submitButton.click();
+         |                             ^
+      64 |   }
+      65 |
+      66 |   async cancel() {
+        at TaskFormPage.submitForm (/workspace/tests/TaskFlow.E2ETests/pages/TaskFormPage.ts:63:29)
+        at TaskFormPage.createTask (/workspace/tests/TaskFlow.E2ETests/pages/TaskFormPage.ts:85:16)
+        at /workspace/tests/TaskFlow.E2ETests/tests/task-management.spec.ts:17:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/task-management-Task-Manag-58704-uld-update-an-existing-task-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/task-management-Task-Manag-58704-uld-update-an-existing-task-chromium/error-context.md
+
+  10) [chromium] › tests/task-management.spec.ts:35:7 › Task Management › should delete a task ─────
+
+    Error: locator.click: Error: strict mode violation: getByRole('button', { name: /(create task|update task)/i }) resolved to 2 elements:
+        1) <button class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors">Create Task</button> aka getByRole('main').getByRole('button', { name: 'Create Task' })
+        2) <button type="submit" class="flex-1 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 disabled:bg-blue-300 disabled:cursor-not-allowed transition-colors font-medium">Create Task</button> aka locator('form').getByRole('button', { name: 'Create Task' })
+
+    Call log:
+      - waiting for getByRole('button', { name: /(create task|update task)/i })
+
+
+       at ../pages/TaskFormPage.ts:63
+
+      61 |
+      62 |   async submitForm() {
+    > 63 |     await this.submitButton.click();
+         |                             ^
+      64 |   }
+      65 |
+      66 |   async cancel() {
+        at TaskFormPage.submitForm (/workspace/tests/TaskFlow.E2ETests/pages/TaskFormPage.ts:63:29)
+        at TaskFormPage.createTask (/workspace/tests/TaskFlow.E2ETests/pages/TaskFormPage.ts:85:16)
+        at /workspace/tests/TaskFlow.E2ETests/tests/task-management.spec.ts:37:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/task-management-Task-Management-should-delete-a-task-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/task-management-Task-Management-should-delete-a-task-chromium/error-context.md
+
+  11) [chromium] › tests/task-management.spec.ts:52:7 › Task Management › should change task status from Open to In Progress 
+
+    Error: locator.click: Error: strict mode violation: getByRole('button', { name: /(create task|update task)/i }) resolved to 2 elements:
+        1) <button class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors">Create Task</button> aka getByRole('main').getByRole('button', { name: 'Create Task' })
+        2) <button type="submit" class="flex-1 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 disabled:bg-blue-300 disabled:cursor-not-allowed transition-colors font-medium">Create Task</button> aka locator('form').getByRole('button', { name: 'Create Task' })
+
+    Call log:
+      - waiting for getByRole('button', { name: /(create task|update task)/i })
+
+
+       at ../pages/TaskFormPage.ts:63
+
+      61 |
+      62 |   async submitForm() {
+    > 63 |     await this.submitButton.click();
+         |                             ^
+      64 |   }
+      65 |
+      66 |   async cancel() {
+        at TaskFormPage.submitForm (/workspace/tests/TaskFlow.E2ETests/pages/TaskFormPage.ts:63:29)
+        at TaskFormPage.createTask (/workspace/tests/TaskFlow.E2ETests/pages/TaskFormPage.ts:85:16)
+        at /workspace/tests/TaskFlow.E2ETests/tests/task-management.spec.ts:54:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/task-management-Task-Manag-de449-us-from-Open-to-In-Progress-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/task-management-Task-Manag-de449-us-from-Open-to-In-Progress-chromium/error-context.md
+
+  12) [chromium] › tests/task-management.spec.ts:69:7 › Task Management › should change task status from In Progress to Completed 
+
+    Error: locator.click: Error: strict mode violation: getByRole('button', { name: /(create task|update task)/i }) resolved to 2 elements:
+        1) <button class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors">Create Task</button> aka getByRole('main').getByRole('button', { name: 'Create Task' })
+        2) <button type="submit" class="flex-1 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 disabled:bg-blue-300 disabled:cursor-not-allowed transition-colors font-medium">Create Task</button> aka locator('form').getByRole('button', { name: 'Create Task' })
+
+    Call log:
+      - waiting for getByRole('button', { name: /(create task|update task)/i })
+
+
+       at ../pages/TaskFormPage.ts:63
+
+      61 |
+      62 |   async submitForm() {
+    > 63 |     await this.submitButton.click();
+         |                             ^
+      64 |   }
+      65 |
+      66 |   async cancel() {
+        at TaskFormPage.submitForm (/workspace/tests/TaskFlow.E2ETests/pages/TaskFormPage.ts:63:29)
+        at TaskFormPage.createTask (/workspace/tests/TaskFlow.E2ETests/pages/TaskFormPage.ts:85:16)
+        at /workspace/tests/TaskFlow.E2ETests/tests/task-management.spec.ts:71:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/task-management-Task-Manag-da725-om-In-Progress-to-Completed-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/task-management-Task-Manag-da725-om-In-Progress-to-Completed-chromium/error-context.md
+
+  12 failed
+    [chromium] › tests/task-creation.spec.ts:21:7 › Task Creation › should create a new task with valid data 
+    [chromium] › tests/task-creation.spec.ts:37:7 › Task Creation › should show validation error when title is too short 
+    [chromium] › tests/task-creation.spec.ts:51:7 › Task Creation › should show validation error when description is too short 
+    [chromium] › tests/task-creation.spec.ts:74:7 › Task Creation › should create multiple tasks with different priorities 
+    [chromium] › tests/task-filtering.spec.ts:15:7 › Task Filtering - BDD Style › Scenario: Filter tasks by status 
+    [chromium] › tests/task-filtering.spec.ts:43:7 › Task Filtering - BDD Style › Scenario: Filter tasks by priority 
+    [chromium] › tests/task-filtering.spec.ts:71:7 › Task Filtering - BDD Style › Scenario: Clear all filters 
+    [chromium] › tests/task-filtering.spec.ts:93:7 › Task Filtering - BDD Style › Scenario: Combine status and priority filters 
+    [chromium] › tests/task-management.spec.ts:15:7 › Task Management › should update an existing task 
+    [chromium] › tests/task-management.spec.ts:35:7 › Task Management › should delete a task ───────
+    [chromium] › tests/task-management.spec.ts:52:7 › Task Management › should change task status from Open to In Progress 
+    [chromium] › tests/task-management.spec.ts:69:7 › Task Management › should change task status from In Progress to Completed 
+  2 passed (6.1s)
