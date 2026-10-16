@@ -1,0 +1,137 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test-backend:
+    name: Build and Test .NET API
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Build
+      run: dotnet build --no-restore --configuration Release
+
+    - name: Run Unit Tests
+      run: dotnet test tests/TaskFlow.Tests/TaskFlow.Tests.csproj --no-build --configuration Release --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./coverage
+
+    - name: Run Integration Tests
+      run: dotnet test tests/TaskFlow.IntegrationTests/TaskFlow.IntegrationTests.csproj --no-build --configuration Release --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./coverage
+
+    - name: Upload Test Coverage
+      uses: actions/upload-artifact@v4
+      with:
+        name: coverage-report
+        path: ./coverage
+
+  build-frontend:
+    name: Build React Frontend
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+        cache-dependency-path: frontend/package-lock.json
+
+    - name: Install dependencies
+      working-directory: ./frontend
+      run: npm ci
+
+    - name: Build
+      working-directory: ./frontend
+      run: npm run build
+
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: frontend-build
+        path: frontend/dist
+
+  e2e-tests:
+    name: E2E Tests with Playwright
+    runs-on: ubuntu-latest
+    needs: [build-and-test-backend, build-frontend]
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: Install .NET dependencies
+      run: dotnet restore
+
+    - name: Build API
+      run: dotnet build --no-restore --configuration Release
+
+    - name: Install frontend dependencies
+      working-directory: ./frontend
+      run: npm ci
+
+    - name: Install Playwright Browsers
+      working-directory: ./tests/TaskFlow.E2ETests
+      run: npx playwright install --with-deps chromium
+
+    - name: Start API
+      run: |
+        cd src/TaskFlow.Api
+        dotnet run --no-build --configuration Release &
+        echo $! > api.pid
+        sleep 10
+
+    - name: Run E2E Tests
+      working-directory: ./tests/TaskFlow.E2ETests
+      run: npm test
+
+    - name: Stop API
+      if: always()
+      run: |
+        if [ -f src/TaskFlow.Api/api.pid ]; then
+          kill $(cat src/TaskFlow.Api/api.pid) || true
+        fi
+
+    - name: Upload Playwright Report
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: playwright-report
+        path: tests/TaskFlow.E2ETests/playwright-report/
+
+  test-summary:
+    name: Test Summary
+    runs-on: ubuntu-latest
+    needs: [build-and-test-backend, build-frontend, e2e-tests]
+    if: always()
+
+    steps:
+    - name: Report Status
+      run: |
+        echo "✅ All tests completed"
+        echo "Backend tests: ${{ needs.build-and-test-backend.result }}"
+        echo "Frontend build: ${{ needs.build-frontend.result }}"
+        echo "E2E tests: ${{ needs.e2e-tests.result }}"

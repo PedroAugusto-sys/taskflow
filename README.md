@@ -2,14 +2,16 @@
 
 A task management system with ASP.NET Core API and React frontend.
 
-![CI Pipeline](https://github.com/PedroAugusto-sys/taskflow/actions/workflows/ci.yml/badge.svg)
+[![CI Pipeline](https://github.com/PedroAugusto-sys/taskflow/actions/workflows/ci.yml/badge.svg)](https://github.com/PedroAugusto-sys/taskflow/actions/workflows/ci.yml)
 
 ## Features
 
 - Create, read, update, and delete tasks
-- Task status management (Todo, InProgress, Done)
-- Priority levels (Low, Medium, High)
+- Task status management (Open, InProgress, UnderReview, Completed, Cancelled)
+- Priority levels (Low, Medium, High, Critical)
 - Filter tasks by status and priority
+- Assign tasks to team members
+- Organize by category
 - Real-time validation with FluentValidation
 - RESTful API with Swagger documentation
 - Responsive React UI
@@ -155,3 +157,7 @@ The project uses GitHub Actions for continuous integration. On every push and PR
 - Collects code coverage reports
 
 See [`.github/workflows/ci.yml`](.github/workflows/ci.yml) for details.
+
+## Author
+
+Pedro Augusto Santos Andrade · [GitHub](https://github.com/PedroAugusto-sys) · [pedrodevx.netlify.app](https://pedrodevx.netlify.app)
