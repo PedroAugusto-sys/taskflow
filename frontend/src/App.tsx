@@ -26,6 +26,14 @@ function App() {
     }
   };
 
+  const handleFormSubmit = async (taskData: CreateTaskItem | UpdateTaskItem) => {
+    if (editingTask) {
+      await handleUpdateTask(taskData as UpdateTaskItem);
+    } else {
+      await handleCreateTask(taskData as CreateTaskItem);
+    }
+  };
+
   const handleEdit = (task: TaskItem) => {
     setEditingTask(task);
     setShowForm(true);
@@ -185,7 +193,7 @@ function App() {
       {showForm && (
         <TaskForm
           task={editingTask}
-          onSubmit={editingTask ? handleUpdateTask : handleCreateTask}
+          onSubmit={handleFormSubmit}
           onCancel={handleCancelForm}
         />
       )}
