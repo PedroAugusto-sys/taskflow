@@ -124,7 +124,7 @@ jobs:
       run: |
         echo "Waiting for API health check..."
         for i in {1..30}; do
-          if curl -s http://localhost:5000/api/tasks > /dev/null 2>&1; then
+          if curl -s http://localhost:5020/api/tasks > /dev/null 2>&1; then
             echo "API is ready!"
             exit 0
           fi
