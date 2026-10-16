@@ -78,10 +78,19 @@ jobs:
       with:
         dotnet-version: '8.0.x'
 
-    - name: Setup Node.js
+    - name: Setup Node.js for frontend
       uses: actions/setup-node@v4
       with:
         node-version: '20'
+        cache: 'npm'
+        cache-dependency-path: frontend/package-lock.json
+
+    - name: Setup Node.js for E2E tests
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+        cache-dependency-path: tests/TaskFlow.E2ETests/package-lock.json
 
     - name: Install .NET dependencies
       run: dotnet restore
@@ -92,6 +101,10 @@ jobs:
     - name: Install frontend dependencies
       working-directory: ./frontend
       run: npm ci
+
+    - name: Build frontend
+      working-directory: ./frontend
+      run: npm run build
 
     - name: Install E2E test dependencies
       working-directory: ./tests/TaskFlow.E2ETests
@@ -105,8 +118,21 @@ jobs:
       run: |
         cd src/TaskFlow.Api
         dotnet run --no-build --configuration Release &
-        echo $! > api.pid
-        sleep 10
+        echo $! > ../../api.pid
+
+    - name: Wait for API to be ready
+      run: |
+        echo "Waiting for API health check..."
+        for i in {1..30}; do
+          if curl -s http://localhost:5000/api/tasks > /dev/null 2>&1; then
+            echo "API is ready!"
+            exit 0
+          fi
+          echo "Attempt $i: API not ready yet, waiting..."
+          sleep 2
+        done
+        echo "API failed to start within 60 seconds"
+        exit 1
 
     - name: Run E2E Tests
       working-directory: ./tests/TaskFlow.E2ETests
@@ -115,16 +141,17 @@ jobs:
     - name: Stop API
       if: always()
       run: |
-        if [ -f src/TaskFlow.Api/api.pid ]; then
-          kill $(cat src/TaskFlow.Api/api.pid) || true
+        if [ -f api.pid ]; then
+          kill $(cat api.pid) || true
         fi
 
     - name: Upload Playwright Report
       uses: actions/upload-artifact@v4
-      if: always()
+      if: failure()
       with:
         name: playwright-report
         path: tests/TaskFlow.E2ETests/playwright-report/
+        retention-days: 30
 
   test-summary:
     name: Test Summary
