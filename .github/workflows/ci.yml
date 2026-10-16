@@ -93,6 +93,10 @@ jobs:
       working-directory: ./frontend
       run: npm ci
 
+    - name: Install E2E test dependencies
+      working-directory: ./tests/TaskFlow.E2ETests
+      run: npm ci
+
     - name: Install Playwright Browsers
       working-directory: ./tests/TaskFlow.E2ETests
       run: npx playwright install --with-deps chromium
