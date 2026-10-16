@@ -1,17 +1,21 @@
-export enum TaskItemStatus {
-  Open = 0,
-  InProgress = 1,
-  UnderReview = 2,
-  Completed = 3,
-  Cancelled = 4,
-}
+export const TaskItemStatus = {
+  Open: 0,
+  InProgress: 1,
+  UnderReview: 2,
+  Completed: 3,
+  Cancelled: 4,
+} as const;
 
-export enum TaskPriority {
-  Low = 0,
-  Medium = 1,
-  High = 2,
-  Critical = 3,
-}
+export type TaskItemStatus = typeof TaskItemStatus[keyof typeof TaskItemStatus];
+
+export const TaskPriority = {
+  Low: 0,
+  Medium: 1,
+  High: 2,
+  Critical: 3,
+} as const;
+
+export type TaskPriority = typeof TaskPriority[keyof typeof TaskPriority];
 
 export interface TaskItem {
   id: number;
