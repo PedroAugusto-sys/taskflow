@@ -1,56 +1,63 @@
 # TaskFlow
 
-A modern task management and workflow orchestration platform.
+A task management system with ASP.NET Core API and React frontend.
+
+![CI Pipeline](https://github.com/PedroAugusto-sys/taskflow/actions/workflows/ci.yml/badge.svg)
 
 ## Features
 
-- Task creation, assignment, and tracking
-- Real-time status updates
-- Priority management and filtering
-- Team collaboration
-- RESTful API
-- Responsive web interface
+- Create, read, update, and delete tasks
+- Task status management (Todo, InProgress, Done)
+- Priority levels (Low, Medium, High)
+- Filter tasks by status and priority
+- Real-time validation with FluentValidation
+- RESTful API with Swagger documentation
+- Responsive React UI
 
 ## Tech Stack
 
 **Backend:**
-- Node.js / Express
-- PostgreSQL
-- JWT authentication
+- ASP.NET Core 8.0
+- Entity Framework Core 8.0.11
+- SQLite
+- FluentValidation 11.3.0
+- Swagger/OpenAPI
 
 **Frontend:**
-- React
-- TypeScript
-- Tailwind CSS
+- React 19.2.8
+- TypeScript 6.0.2
+- Vite 8.3.0
+- Tailwind CSS 3.4.19
+- Axios
 
 **Testing:**
-- Jest (unit/integration)
-- Playwright (E2E)
+- xUnit (unit tests)
+- ASP.NET Core integration tests
+- Playwright 1.64.1 (E2E tests)
 
 ## Architecture
 
-TaskFlow follows a client-server architecture with a REST API backend and a React SPA frontend. The API handles authentication, task CRUD operations, and real-time updates, while the frontend provides an interactive interface.
+TaskFlow follows a clean architecture pattern with the API handling business logic and data persistence through EF Core with SQLite. The frontend is a single-page application that communicates with the API via REST endpoints. The project includes validators for request DTOs, a service layer for business logic, and comprehensive test coverage across unit, integration, and E2E tests.
 
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js 18+
-- PostgreSQL 14+
-- npm or yarn
+- .NET 8.0 SDK
+- Node.js 20+
+- npm
 
 ### Run API
 
 ```bash
-cd api
-npm install
-cp .env.example .env
-# Configure database connection in .env
-npm run migrate
-npm run dev
+cd src/TaskFlow.Api
+dotnet restore
+dotnet run
 ```
 
-API runs on `http://localhost:3000`
+API runs on `http://localhost:5000` (HTTP) and `https://localhost:5001` (HTTPS)
+
+Swagger UI available at `https://localhost:5001/swagger`
 
 ### Run Frontend
 
@@ -64,39 +71,87 @@ Frontend runs on `http://localhost:5173`
 
 ## Running Tests
 
-### Unit Tests
+### Unit Tests (31 tests)
 
 ```bash
+dotnet test tests/TaskFlow.Tests/TaskFlow.Tests.csproj
+```
+
+### Integration Tests (17 tests)
+
+```bash
+dotnet test tests/TaskFlow.IntegrationTests/TaskFlow.IntegrationTests.csproj
+```
+
+### E2E Tests with Playwright (14 tests)
+
+Install Playwright browsers first:
+
+```bash
+cd tests/TaskFlow.E2ETests
+npx playwright install chromium
+```
+
+Start the API, then run E2E tests:
+
+```bash
+# Terminal 1: Start API
+cd src/TaskFlow.Api
+dotnet run
+
+# Terminal 2: Run E2E tests
+cd tests/TaskFlow.E2ETests
 npm test
 ```
 
-### Integration Tests
+Run tests with UI:
 
 ```bash
-npm run test:integration
+npm run test:ui
 ```
 
-### E2E Tests (Playwright)
+### Run All Tests
 
 ```bash
-npm run test:e2e
+dotnet test
 ```
 
 ## Project Structure
 
 ```
 taskflow/
-├── api/              # Backend API
+├── src/
+│   └── TaskFlow.Api/           # ASP.NET Core API
+│       ├── Data/               # EF Core DbContext
+│       ├── DTOs/               # Data transfer objects
+│       ├── Models/             # Domain models
+│       ├── Services/           # Business logic
+│       └── Validators/         # FluentValidation validators
+├── frontend/                   # React frontend
 │   ├── src/
-│   ├── tests/
+│   │   ├── components/         # React components
+│   │   ├── hooks/              # Custom hooks
+│   │   ├── services/           # API client
+│   │   └── types/              # TypeScript types
 │   └── package.json
-├── frontend/         # React frontend
-│   ├── src/
-│   ├── tests/
-│   └── package.json
-└── README.md
+├── tests/
+│   ├── TaskFlow.Tests/         # Unit tests
+│   ├── TaskFlow.IntegrationTests/  # Integration tests
+│   └── TaskFlow.E2ETests/      # Playwright E2E tests
+├── .github/
+│   └── workflows/
+│       └── ci.yml              # CI pipeline
+├── TaskFlow.sln                # Solution file
+└── docker-compose.yml          # Docker setup
 ```
 
-## License
+## CI/CD
 
-MIT
+The project uses GitHub Actions for continuous integration. On every push and PR to main, the pipeline:
+
+- Builds and tests the .NET API (unit + integration tests)
+- Builds the React frontend
+- Runs E2E tests with Playwright
+- Collects code coverage reports
+
+See [`.github/workflows/ci.yml`](.github/workflows/ci.yml) for details.
